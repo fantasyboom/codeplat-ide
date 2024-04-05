@@ -4,6 +4,10 @@ import Split from 'react-split'
 import ReactCodeMirror from '@uiw/react-codemirror'
 import { vscodeDark } from '@uiw/codemirror-theme-vscode'
 import { javascript } from '@codemirror/lang-javascript'
+import { java } from '@codemirror/lang-java'
+//import { python } from '@codemirror/lang-python'
+import { encode } from 'base-64';
+import { encode as utf8Encode } from 'utf8';
 
 
 type Props = {}
@@ -14,6 +18,14 @@ export default function Playground({}: Props) {
   const handleCodeChange = (newCode: string) => {
     setCode(newCode);
   };
+
+  const text = code;
+  const bytes = utf8Encode(text);
+  const encoded = encode(bytes);
+
+  console.log(encoded);
+
+
 
   
 
@@ -29,7 +41,7 @@ export default function Playground({}: Props) {
           <ReactCodeMirror
             value={code} 
             theme={vscodeDark}
-            extensions={[javascript()]}
+            extensions={[java()]}
             style={{fontSize:16}}
             onChange={(newCode) => handleCodeChange( newCode)} // Pass the editor, data, and newCode
           />
